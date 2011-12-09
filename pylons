@@ -1,0 +1,16 @@
+#!/bin/bash 
+
+case "$1" in
+  start)
+    paster serve --daemon --pid-file=$HOME/mc27/paster.pid --log-file=$HOME/mc27/paster.log $HOME/mc27/development.ini start
+    ;;
+  stop)
+    paster serve --daemon --pid-file=$HOME/mc27/paster.pid --log-file=$HOME/mc27/paster.log  $HOME/mc27/development.ini stop
+    ;;
+  restart)
+    paster serve  --daemon --pid-file=$HOME/mc27/paster.pid --log-file=$HOME/mc27/paster.log $HOME/mc27/development.ini restart
+    ;;
+  *)
+    echo $"Usage: $0 {start|stop|restart}"
+    exit 1
+esac
