@@ -1,3 +1,0 @@
-#!/bin/bash
-scp -i /home/aseem/bitnami-hosting1.pem /home/aseem/inl/htdocs/*.html bitnami@107.22.209.1:/opt/bitnami/apache2/htdocs
-
