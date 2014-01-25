@@ -1,2 +1,0 @@
-#!/bin/bash
-ssh -i /home/aseem/bitnami-hosting1.pem -l bitnami 107.22.209.1
