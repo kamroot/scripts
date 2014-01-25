@@ -429,62 +429,7 @@ case `uname` in
 		alias du="du --si"
 		alias man=info
 	    ;; 
-	 "HP-UX" )
-	         stty intr '^c'
-		 alias rmvm="swremove -x autoreboot=true VRTSvxvm"
-	         ;;
 esac
-
-######################################################################
-## Machine specific stuff		                            ##
-######################################################################
-
-case `uname -n` in
-     "murphys" )
-	     PATH=$PATH:/net/murphys/opt/SUNWspro/bin/
-	     hash cvs cc make
-	     ;;
-     "megami" )
-	    hash cvs
-	    ;;
-     "hoosier" )
-	    hash cvs
-	    ;;
-     "devil" )
-	   hash cvs
-	   ;;
-esac
-
-######################################################################
-## Misc stuff		                                      ##
-######################################################################
-
-if [ -z "$USER" ]; then
-	export USER="`who am i`"
-fi
-
-# check if this is a shell from emacs
-# idate prints time in India right now
-if [ ! -z "$EMACS" ] ; then
-        export PS1="emacs -> "
-fi
-
-# add to manpath only those directories which can be searched
-# directories are added towards the end so put the less important directories
-# to the end of manpathlist. This is done because on different systems 
-# one might be interested in different thing - man path locations can 
-# vary widely from solaris to HP-UX to linux.        -- Aseem, Feb 15, 2002.
-# unset MANPATH
-
-MANPATHLIST="/usr/dt/man /usr/openwin/share/man /usr/X11R6/man /usr/local/man /usr/share/man /usr/share/webmin/caldera/man /usr/share/webmin/man /usr/lib/perl5/man /usr/man /usr/lib/xemacs/xemacs-packages/man /usr/doc/xpilot-4.2.0/doc/man /usr/lib/sgml-tools/dist/sgmltool/man /usr/java/jdk1.3.0_02/man /usr/java/jdk1.3.0_02/jre/man /usr/share/man"
-
-for i in $MANPATHLIST; do 
-	if [ -x "$i" ] ; then
-		MANPATH=$MANPATH:$i
-	fi
-done
-
-export MANPATH
 
 ######################################################################
 ## Stuff I might want to print on the tty		        ##
@@ -501,29 +446,6 @@ echo "==> (version) $VERSION"
 
 #####################################################################"
 
-
-# there is no risk in having the following in all domains(not only veritas.com)
-# they won't be added if they don't exist.
-PATH_PREPEND="/home/aseem/bin/links"
-PATH_PREPEND="$PATH_PREPEND /net/murphys/opt/SUNWspro/ParallelMake/bin"
-PATH_PREPEND="$PATH_PREPEND /net/murphys/opt/SUNWspro/bin"
-PATH_PREPEND="$PATH_PREPEND /net/murphys/opt/SUNWspro5/bin"
-PATH_PREPEND="$PATH_PREPEND /usr/local/bin/stools /opt/langtools/bin"
-PATH_PREPEND="$PATH_PREPEND /usr/bin /usr/sbin /bin"
-PATH_PREPEND="$PATH_PREPEND /opt/sfw/bin"
-PATH_APPEND="$PATH_APPEND /usr/openwin/bin"
-PATH_APPEND="$PATH_APPEND /etc/vx/bin /usr/lib/vxvm/diag.d"
-PATH_APPEND="$PATH_APPEND /opt/VRTSvcs/bin $FMHOME/bin /opt/VRTS/bin"
-PATH_APPEND="$PATH_APPEND /usr/contrib/bin /usr/contrib/Q4/bin"
-PATH_APPEND="$PATH_APPEND /usr/contrib/bin/X11"
-if [ `uname -s` = "SunOS" ] ; then
-    PATH_APPEND="$PATH_APPEND /opt/apps/SUNWspro/ParallelMake/bin/"
-    PATH_APPEND="$PATH_APPEND /net/megami/opt/apps/WShop6.2/SUNWspro/bin"
-fi
-PATH_APPEND="$PATH_APPEND /net/vmbld29/vmtools/bin/"
-PATH_APPEND="$PATH_APPEND /opt/VRTSvcs/bin"
-PATH_APPEND="$PATH_APPEND /opt/VRTSvcs/vxfen/bin"
-adjust_path "$PATH_PREPEND" "$PATH_APPEND"
 
 #-----------------------
 # Greeting, motd etc...
@@ -543,20 +465,6 @@ trap _exit EXIT
 
 #===============================================================
 #
-
-# sometimes test machines don't have domainname set so set_veritas_stuff might
-# not be called. call explicitly if needed
-_veritas_hosts="$_veritas_hosts hpilb21 hpilb22 hpilb23 hpilb24"
-_vertias_hosts="$_veritas_hosts spaten"
-_veritas_hosts="$_veritas_hosts othello palmyra fame globe"
-_veritas_hosts="$_veritas_hosts hprx1 hprx2 hprx3 hprx4"
-_veritas_hosts="$_veritas_hosts hprx5 hprx6 hprx7 hprx8"
-_veritas_hosts="thoribm59 thoribm60"
-for i in $_veritas_hosts ; do
-	if [[ 'uname -n' -eq "$i" ]] ; then
-		set_veritas_stuff
-	fi
-done
 
 stdprompt
 
