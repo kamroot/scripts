@@ -357,16 +357,6 @@ alias tm="date +%d.%h.%y-%HH"
 alias tmm="date +%d.%h.%y-%H:%M"
 alias tms="date +%d.%h.%y-%H:%M::%S"
 
-# cvs aliases
-alias cf="cvs diff -c 2>/dev/null | grep ^Index"
-alias cdd="cvs diff -c "
-alias cs="cvs status"
-alias cl="cvs login"
-alias cu="cvs update"
-alias cm="cvs commit"
-alias srv="ssh aseem@flexisrv"
-alias gs="git status"
-
 # fg/bg stuff
 alias 1='fg %1'                                 # Some "_really_" usefull heh..
 alias 2='fg %2'                                 # job-controll shortcuts...
