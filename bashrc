@@ -9,24 +9,6 @@ if [ -z "$PS1" ]; then
 	return
 fi
 
-VERSION="$Revision: 1.12 $"
-
-# I use a lot of machines which are also used by many other people.
-# don't source this file if I am not aseem. Provide a function to
-# source this file if needed.
-if [ "$LOGNAME" != "aseem" -a -z "$_src" ] ; then
-        function rs() {
-	    _src=1 source ~/.bashrc
-        }
-	echo "not sourcing bashrc"
-	return
-fi
-
-# Read /etc/bashrc, if present.
-if [ -f /etc/bashrc ]; then
-        . /etc/bashrc
-fi
-
 # Define some colors first:
 red='\e[0;31m'
 RED='\e[1;31m'
@@ -160,35 +142,30 @@ else
     HILIT=${cyan}  # local machine: prompt will be partly cyan
 fi
 
-# generate cscope and etags for the current directory
-function gentags() {
-    rm -f cscope.files TAGS
-    find . -name "*.[cCh]" > cscope.files
-    cscope -b 
-    etags `cat cscope.files`
+
+# from http://thelucid.com/2008/12/02/git-setting-up-a-remote-repository-and-doing-an-initial-push/
+# added by Aseem, Dec 28, 2013
+function gitbranchname {
+  git symbolic-ref HEAD 2>/dev/null | cut -d"/" -f 3
+}
+
+function gitbranchprompt {
+  local branch=`gitbranchname`
+  if [ $branch ]; then printf " [%s]" $branch; fi
 }
 
 function stdprompt() {
 	# most machines dont have time info about Asia/Calcutta so no
 	# idate for them
 	if [ -z "$PS1" ] ; then
-#	    export PS1="${HILIT}\u\[\033[0m\]\
+	    #export PS1="${HILIT}\u\[\033[0m\]\
 	    export PS1="\[\033[0;31m\]\u\[\033[0m\]\
 @\h \
 [\[\033[1;31m\]\W\[\033[0m\]]\
-[\[\033[1;34m\]\$(jobcount)\[\033[0m\]] "
+[\[\033[1;34m\]\$(jobcount)\[\033[0m\]]\\033[0;32m\]\$(gitbranchprompt)\[\033[0m\] \$ "
 	fi
 }
 
-function make_readable() {
-	find $1 -type f -exec chmod ugo+r {} \;
-	find $1 -type d -exec chmod ugo+rx {} \;
-}
-
-function make_nonreadable() {
-	find $1 -type f -exec chmod go-r {} \;
-	find $1 -type d -exec chmod go-rx {} \;
-}
 
 # function adjust_path: given a prepend and append list adjust 
 # the path to include them if they exist
@@ -387,6 +364,8 @@ alias cs="cvs status"
 alias cl="cvs login"
 alias cu="cvs update"
 alias cm="cvs commit"
+alias srv="ssh aseem@flexisrv"
+alias gs="git status"
 
 # fg/bg stuff
 alias 1='fg %1'                                 # Some "_really_" usefull heh..
