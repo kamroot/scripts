@@ -396,20 +396,6 @@ export IGNOREEOF=1
 ######################################################################
 
 case `uname` in
-
-	"SunOS" )
-	    alias PS="ps -fu$LOGNAME"
-		alias du="du -k"
-
-	    # function to set debugging in vxio
-            # Aug 16, 2001
-	    if [ `domainname` == "veritas.com" ] ; then
-	    	    set_dbg() {
-		        echo "vxvm_dbg_$1/W $2" | adb -kw
-		    }
-	    fi
-
-	    ;;
 	 "Linux" )
 		# unalias rm, cp and mv. First find out if they are aliased
 		# in the first place or not.
