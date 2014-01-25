@@ -372,11 +372,6 @@ alias 44='bg %4'
 alias 55='bg %5'
 alias 66='bg %6'
 
-# change editor to non-windowing ones or background ones
-alias ebg='export EDITOR=/home/aseem/bin/links/emacs-bg ; export VISUAL=/home/aseem/bin/links/emacs-bg'
-alias enw='export EDITOR=/home/aseem/bin/links/emacs-nw ; export VISUAL=/home/aseem/bin/links/emacs-nw'
-alias evi='export EDITOR=vi'
-
 ################################################################
 # General Export Section                                     ###
 ################################################################
@@ -387,14 +382,6 @@ export EDITOR=vi
 export VISUAL=emacs
 export ENSCRIPT="-h -2Gr -L67"
 export LESS="-im"
-
-# some aix machines don't have less. give the more!
-if [ -x /bin/less ] ; then
-    export PAGER=less
-else
-    export PAGER=more
-    alias l=more
-fi
 
 export HISTIGNORE="[bf]g:exit:pine:rm"
 adjust_path /usr/X11R6/bin ""
