@@ -391,43 +391,6 @@ export MAILPATH=/var/mail/$LOGNAME
 export HOSTFILE=/etc/hosts
 export IGNOREEOF=1
 
-################################################################
-## separating things in separate domains. From now on, I will ##
-## put all my home machines in the galaxy.aseem domain        ##
-## Aseem  26  Feb 2001.                                       ##
-## Aseem  02  Feb 2003.				  ##
-##						  ##
-## Current domains					  ##
-##	 1. Indiana Univ - removed			  ##
-##	 2. veritas.com				  ##
-##	 3. galaxy.aseem				  ##
-################################################################
-
-
-case `domainname` in
-
-    "veritas.com" )
-	set_veritas_stuff
-
-	# the following stuff is not part of set_veritas_stuff since
-	# I think it will only run on machines like megami/hoosier
-	# which have domainname set.
-
-	# edi requires  CVSMODULE
-	export CVSMODULE=unixvm-cvs
-
-	;;
-
-	# my machines
-	"galaxy.aseem" )
-
-		# see if we need to specify a CVSROOT
-		if [ ! -z /data2/cvsroot ] ; then
-			export CVSROOT=/data2/cvsroot
-		fi
-	;;
-esac
-
 ######################################################################
 ## OS Specific Stuff				        ##
 ######################################################################
