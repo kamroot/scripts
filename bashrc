@@ -391,63 +391,6 @@ export MAILPATH=/var/mail/$LOGNAME
 export HOSTFILE=/etc/hosts
 export IGNOREEOF=1
 
-function set_veritas_stuff {
-	# anything that I want to put at the begining of the path I incl
-	# in path prepend. others in path append. 
-	export FM_FLS_HOST=megami
-	export FMHOME=/opt/frame5.5
-
-	if [ "$HOSTNAME" == "hoosier" ] ; then	
-		export CVSROOT=/home/aseem/work/cvs
-	else
-		export CVSROOT=:pserver:aseem@megami:/project
-	fi
-
-        if [ X"$HOSTNAME" = X"prowler" -o X"$HOSTNAME" = X"sheridan" ] ; then
-            umask 022
-	else
-		umask 066 # lots of group work
-	fi
-	set lpr tolstoy # default printer
-	
-	# here are some fns for using the itools/isearch
-	function i() {
-	    if [ $# -lt 1 ]
-	    then
-		echo "Usage iprint incident"
-	    else
-		if [ `hostname` = megami ] ; then
-		   iprint $i | less
-		else
-		   ssh -l aseem megami iprint $1 | less 
-		fi   
-	    fi
-         }
-
-	 function e() {
-		eprint -e $1
-	 }
-      
-	# some login aliases
-	alias lmr="rlogin -l $LOGNAME murphys"
-	alias lmg="ssh -l $LOGNAME megami"
-	alias lsp="rlogin -l $LOGNAME spaten"
-
-	# some login aliases which spawn a new window
-	alias xmr="x -e rsh -l $LOGNAME murphys &"
-	alias xmg="x -e rsh -l $LOGNAME megami &"
-	alias xsp="x -e rsh -l $LOGNAME spaten &"
-
-	# alias to move the spanky sources
-	alias ss='cd /net/spanky/home/aseem/sources/'
-
-	# alias to print vxfendebug
-	function prtfen() {
-		/opt/VRTSvcs/vxfen/bin/vxfendebug -p | awk ' { print   NR,$0 } '
-	}
-
-}
-
 ################################################################
 ## separating things in separate domains. From now on, I will ##
 ## put all my home machines in the galaxy.aseem domain        ##
